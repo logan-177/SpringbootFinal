@@ -28,7 +28,7 @@ SpringbootFinal/
 └── README.md
 ```
 
-## Deployment Steps Taken
+Steps in order of the mini pipeline
 
 1. Build the Spring Boot JAR:
 
@@ -75,7 +75,7 @@ To deploy everything automatically, run:
 ./deploy-all.sh
 ```
 
-This script:
+This script successfully:
 
 * Starts Minikube if not running
 * Applies PV and PVC

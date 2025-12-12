@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-webapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-webapp
+  template:
+    metadata:
+      labels:
+        app: demo-webapp
+    spec:
+      containers:
+      - name: demo-webapp
+        image: springbootfinal:local
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: demo-storage
+          mountPath: /app/data
+      volumes:
+      - name: demo-storage
+        persistentVolumeClaim:
+          claimName: demo-pvc  # must match your existing PVC
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-webapp-service
+spec:
+  selector:
+    app: demo-webapp
+  type: NodePort
+  ports:
+  - port: 8080
+    targetPort: 8080
+    nodePort: 30002
+
